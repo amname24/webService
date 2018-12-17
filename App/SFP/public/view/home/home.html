@@ -3,7 +3,7 @@
 	<div class="container">
         <div class="row" >
             <div class ="container">
-                <form ng-if="logged" ng-controller = "homeCtrl" class="navbar-form" role="search" ng-submit="search()">
+                <form ng-controller = "homeCtrl" class="navbar-form" role="search" ng-submit="search()">
                     <div class="input-group add-on">
                         <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" ng-model="searchInput"
                             type="text">
@@ -12,8 +12,8 @@
                         </div>
                     </div>
                    <div class="input-group-btn search-panel">
-                        <select class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-options="site as site for site in sites"
-                            ng-model="selectedSite">
+                        <select class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-options="filter for filter in filters"
+                            ng-model="selectedFilter">
                             <option value="">-- Select a site --</option>
                         </select>
                     </div>
