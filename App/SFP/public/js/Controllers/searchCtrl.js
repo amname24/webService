@@ -1,12 +1,12 @@
 videoApp.controller('searchCtrl', ['videoService', '$http', '$scope', '$location', '$rootScope', function (videoService, $http, $scope, $location, $rootScope) {
-    videos = [];
+    $scope.datas = [];
     var searchInput;
     $scope.load = function () {
         searchInput = $location.search().input
         console.log(searchInput);
 
         if (!searchInput) {
-            $scope.video = [];
+            $scope.datas = [];
             return;
         }
         videoService.search(searchInput, function (res) {

@@ -4,6 +4,7 @@ videoApp.factory('videoService', ['$http', function ($http) {
     server.search = function(input, cb){
         var req = {
             input: input,
+            filter: filter
         }
         console.log(req);
         
@@ -12,7 +13,6 @@ videoApp.factory('videoService', ['$http', function ($http) {
             cb(res.data) 
         })
     }
- 
     
     return server;
 }])

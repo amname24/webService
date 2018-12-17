@@ -1,6 +1,6 @@
 
 videoApp.controller('homeCtrl', ['$http', '$rootScope','$scope', '$cookies','$location',function ($http,$rootScope, $scope, $cookies, $location) {
- 
+    $scope.filters = ["laboratory","institution","researchteam",""]
     $scope.search = function () {
         var searchInput = $scope.searchInput;
         
@@ -8,10 +8,7 @@ videoApp.controller('homeCtrl', ['$http', '$rootScope','$scope', '$cookies','$lo
         window.location.href = "https://localhost:8090/#!/home/search?input=" + searchInput
     }
     $scope.load = function () {
-        $rootScope.username = $cookies.get('username');
-        $rootScope.email = $cookies.get('email');
-        $rootScope.userId = $cookies.get('userId');
-        $scope.logged = true;
+    
     }
    
 }]);
