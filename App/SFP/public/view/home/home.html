@@ -1,10 +1,10 @@
-<div data-ng-init="load()" ng-controller="homeCtrl">
+<div>
 
     <div class="container">
         <div class="row">
-            <div class="container">
-                <form ng-controller="homeCtrl" class="navbar-form" role="search" ng-submit="search()">
-                    <div class="input-group add-on">
+            <div class="container"  ng-controller="homeCtrl">
+                <form class="navbar-form" role="search" ng-submit="search()">
+                    <div   class="input-group add-on">
                         <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" ng-model="searchInput"
                             type="text">
                         <div class="input-group-btn">
@@ -17,9 +17,8 @@
                             <option value="">-- Select a site --</option>
                         </select>
                     </div>
-                
+        
                 </form>
-
             </div>
             <ui-view></ui-view>
         </div>

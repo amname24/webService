@@ -5,14 +5,11 @@ videoApp.controller('homeCtrl', ['$http', '$rootScope', '$scope', '$cookies', '$
         var searchInput = $scope.searchInput;
         var filter = $scope.selectedFilter
 
-        console.log(filter)
         if (filter)
             window.location.href = "https://localhost:8090/#!/home/search?filter=" + filter + "&input=" + searchInput
         else
             window.location.href = "https://localhost:8090/#!/home/search?input=" + searchInput
     }
-    $scope.load = function () {
-        $scope.logged = true;
-    }
+    
 
 }]);
