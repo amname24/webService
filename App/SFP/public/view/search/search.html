@@ -1,28 +1,21 @@
 <div data-ng-controller="searchCtrl" data-ng-init="load()">
     <table class="table">
-            <thead>
-                <tr>
-                <th scope="col">uri</th>
-                <th scope="col">doc id</th>
-                <th scope="col">label source</th>
-                </tr>
-            </thead>
-            <tbody>
-    <!-- <div class="row search-result" >
-        <div class="result"> -->
-            <!-- <a href="{{data.uri_s}}">
-                <span> {{data.label_s}}</span>
-            </a> -->
-                  <tr  ng-repeat="data in datas" >
-                    <td><a href="{{data.uri_s}}">
-                            <span> {{data.uri_s}}</span>
-                        </a></td>
-                    <!-- <td>{{data.uri_s}}</td> -->
-                    <td>{{data.docid}}</td>
-                    <td>{{data.label_s}}</td>
-                  </tr>
-            </tbody>
-            </table>
-        <!-- <hr> -->
-    <!-- </div> -->
+        <thead>
+            <tr>
+            <th scope="col">uri</th>
+            <th scope="col">doc id</th>
+            <th scope="col">label source</th>
+            </tr>
+        </thead>
+        <tbody>
+   
+            <tr  ng-repeat="data in datas" >
+            <td><a href="{{data.uri_s}}">
+                    <span> {{data.uri_s}}</span>
+                </a></td>
+            <td>{{data.docid}}</td>
+            <td>{{data.label_s}}</td>
+            </tr>
+        </tbody>
+        </table>
 </div>
