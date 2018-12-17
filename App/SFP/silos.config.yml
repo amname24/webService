@@ -1,0 +1,7 @@
+silo:
+  user:
+    host: 'localhost'
+    port: 8091
+    endpoints:
+      user: 'user'
+  

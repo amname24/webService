@@ -1,0 +1,12 @@
+<div data-ng-controller="searchCtrl" data-ng-init="load()">
+    <div class="row search-result" id="resultContent">
+        <div class="col-md-4" ng-repeat="video in videos">
+            <div class="thumbnail">
+                <div class="caption">
+                    <span style="display:block;text-overflow: ellipsis;width: 100%;overflow: hidden; white-space: nowrap;">{{video.label_s}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

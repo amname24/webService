@@ -1,0 +1,7 @@
+.history{
+    float: right;
+    margin-bottom: 10px;
+}
+#playlists a:hover{
+    color:black 
+}

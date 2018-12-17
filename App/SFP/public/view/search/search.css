@@ -1,0 +1,36 @@
+.navbar-form {
+    margin-left: 18%;
+    position: relative;
+}
+
+
+.search-result-img {
+    width: 100px;
+    height: 100px;
+    /* border-radius: 50%; */
+    float: left;
+    border: 2px solid #161f42;
+}
+
+.caption{
+    padding: 5px;
+}
+.col-md-4{
+    width:30%;
+    height: auto;
+    /* margin-left: 200px;
+    position: relative; */
+    float:left;
+    padding-left:15px;
+    padding-right:15px;
+}
+.search-panel{
+    position: relative;
+    top: 0;
+    display: inline-block;
+    padding: 3px;
+}
+.search-result{
+    margin-left: 150px;
+    position: relative;
+}
