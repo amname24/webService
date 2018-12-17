@@ -1,6 +1,7 @@
 
 videoApp.controller('homeCtrl', ['$http', '$rootScope','$scope', '$cookies','$location',function ($http,$rootScope, $scope, $cookies, $location) {
  
+    $scope.sites = ["Institures"]
     $scope.search = function () {
         var searchInput = $scope.searchInput;
         

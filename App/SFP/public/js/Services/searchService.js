@@ -1,5 +1,5 @@
 
-videoApp.factory('videoService', ['$http', function ($http) {
+videoApp.factory('searchService', ['$http', function ($http) {
     var server = {}
     server.search = function(input, cb){
         var req = {
