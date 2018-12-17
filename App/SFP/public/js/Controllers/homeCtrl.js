@@ -1,17 +1,18 @@
+videoApp.controller('homeCtrl', ['$http', '$rootScope', '$scope', '$cookies', '$location', function ($http, $rootScope, $scope, $cookies, $location) {
 
-videoApp.controller('homeCtrl', ['$http', '$rootScope','$scope', '$cookies','$location',function ($http,$rootScope, $scope, $cookies, $location) {
- 
-    $scope.sites = ["laboratory","institution","researchteam"]
-    $rootScope.filter='';
-    $rootScope.input='';
-    $scope.search = function (searchInput,selectedSite) {
-        $rootScope.filter = selectedSite
-        $rootScope.input = searchInput;
-        if($scope.selectedSite)
-            window.location.href = "https://localhost:8090/#!/home/search" ;
+    $scope.filters = ["laboratory", "institution", "researchteam"]
+    $scope.search = function () {
+        var searchInput = $scope.searchInput;
+        var filter = $scope.selectedFilter
+
+        console.log(filter)
+        if (filter)
+            window.location.href = "https://localhost:8090/#!/home/search?filter=" + filter + "&input=" + searchInput
+        else
+            window.location.href = "https://localhost:8090/#!/home/search?input=" + searchInput
     }
     $scope.load = function () {
-    
+        $scope.logged = true;
     }
-   
+
 }]);
