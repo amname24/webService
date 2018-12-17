@@ -13,7 +13,18 @@ videoApp.factory('searchService', ['$http', function ($http) {
             cb(res.data) 
         })
     }
- 
+    server.searchFilter = function(input, cb){
+        var req = {
+            input: input,
+            filter: filter
+        }
+        console.log(req);
+        
+        $http.post('/search/filter', req).then(function(res){
+            console.log(res.data)            
+            cb(res.data) 
+        })
+    }
     
     return server;
 }])

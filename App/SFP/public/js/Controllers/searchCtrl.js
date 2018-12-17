@@ -1,5 +1,5 @@
 videoApp.controller('searchCtrl', ['searchService', '$http', '$scope', '$location', '$rootScope', function (searchService, $http, $scope, $location, $rootScope) {
-    videos = [];
+    $scope.datas = [];
     var searchInput;
     var filter
     $scope.load = function () {
@@ -22,6 +22,5 @@ videoApp.controller('searchCtrl', ['searchService', '$http', '$scope', '$locatio
     
     $rootScope.$on("$locationChangeStart", function(event, next, current) { 
         $scope.load()
-        
     });
 }]);
