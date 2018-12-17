@@ -12,7 +12,7 @@ videoApp.controller('searchCtrl', ['videoService', '$http', '$scope', '$location
         videoService.search(searchInput, function (res) {
             if (res.success) {
 
-                $scope.videos = res.data
+                $scope.datas = res.data
                 console.log(res.data);
 
             }

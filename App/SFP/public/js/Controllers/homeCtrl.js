@@ -1,5 +1,5 @@
 
-videoApp.controller('homeCtrl', ['loginService','$http', '$rootScope','$scope', '$cookies','$location',function (loginService,$http,$rootScope, $scope, $cookies, $location) {
+videoApp.controller('homeCtrl', ['$http', '$rootScope','$scope', '$cookies','$location',function ($http,$rootScope, $scope, $cookies, $location) {
  
     $scope.search = function () {
         var searchInput = $scope.searchInput;
