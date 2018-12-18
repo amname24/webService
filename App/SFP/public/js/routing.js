@@ -1,4 +1,4 @@
-videoApp.config(function ($stateProvider,$urlRouterProvider) {
+searchApp.config(function ($stateProvider,$urlRouterProvider) {
     var homeState = {
         name: "home",
         url: "/",

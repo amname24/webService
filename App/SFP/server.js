@@ -28,83 +28,61 @@ app.post('/search', (req, res) => {
   var docs = []
   console.log(input);
   if (filter) {
-    request.get("https://api.archives-ouvertes.fr/search/?q=" + input + "&fq=structType_s:" + filter + "&wt=json",
+    request.get("https://api.archives-ouvertes.fr/search/?q=" + input + "&fq=structType_s:" + filter + "&wt=json&fl=authFullName_s+docid+label_s+uri_s+title_s",
       function (err, response, body) {
         if (response.statusCode == 200) {
           isOk = true
           items = JSON.parse(response.body).response.docs
           items.forEach(item => {
-            request.get("https://api.archives-ouvertes.fr/search/?q=docid:" + item.docid + "&wt=json&fl=title_s+authFullName_s", function (err, resp) {
-              var title = JSON.parse(resp.body).response.docs[0].title_s
-              var authors = JSON.parse(resp.body).response.docs[0].authFullName_s
 
-              var doc = {
-                _id: uuid(),
-                label: item.label_s,
-                uri: item.uri_s,
-                docid: item.docid,
-                title: title.toString(),
-                authors: authors.toString()
-              }
-              docs.push(doc)
+            var doc = {
+              _id: uuid(),
+              label: item.label_s,
+              uri: item.uri_s,
+              docid: item.docid,
+              title: item.title_s.toString(),
+              authors: item.authFullName_s.toString()
+            }
+            docs.push(doc)
+            DocRepository.add(doc, (res) => {
 
-              DocRepository.add(doc, (res) => {
-
-              })
-              if (docs.length === items.length) {
-                console.log('filter');
-                res.send({
-                  data: docs,
-                  success: isOk
-                })
-              }
-            });
-
+            })
           });
 
-
         }
-
+        res.send({
+          data: docs,
+          success: isOk
+        })
       })
 
   } else {
-    request.get("https://api.archives-ouvertes.fr/search/?q=" + input + "&wt=json",
+    request.get("https://api.archives-ouvertes.fr/search/?q=" + input + "&wt=json&fl=authFullName_s+docid+label_s+uri_s+title_s",
       function (err, response, body) {
         if (response.statusCode == 200) {
           isOk = true
           items = JSON.parse(response.body).response.docs
           items.forEach(item => {
-            request.get("https://api.archives-ouvertes.fr/search/?q=docid:" + item.docid + "&wt=json&fl=title_s+authFullName_s", function (err, resp) {
-              var title = JSON.parse(resp.body).response.docs[0].title_s
-              var authors = JSON.parse(resp.body).response.docs[0].authFullName_s
 
-              var doc = {
-                _id: uuid(),
-                label: item.label_s,
-                uri: item.uri_s,
-                docid: item.docid,
-                title: title.toString(),
-                authors: authors.toString()
-              }
-              docs.push(doc)
+            var doc = {
+              _id: uuid(),
+              label: item.label_s,
+              uri: item.uri_s,
+              docid: item.docid,
+              title: item.title_s.toString(),
+              authors: item.authFullName_s.toString()
+            }
+            docs.push(doc)
 
-              DocRepository.add(doc, (res) => {
-                // console.log(docs);
-
-              })
-              if (docs.length === items.length) {
-                console.log('no filter');
-                
-                res.send({
-                  data: docs,
-                  success: isOk
-                })
-              }
-            });
-
+            DocRepository.add(doc, (res) => {
+              // console.log(docs);
+            })
           });
 
-
+          res.send({
+            data: docs,
+            success: isOk
+          })
         }
 
       })

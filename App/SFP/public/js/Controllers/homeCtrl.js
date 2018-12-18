@@ -1,4 +1,4 @@
-videoApp.controller('homeCtrl', ['$http', '$rootScope', '$scope', '$cookies', '$location', function ($http, $rootScope, $scope, $cookies, $location) {
+searchApp.controller('homeCtrl', ['$http', '$rootScope', '$scope', '$cookies', '$location', function ($http, $rootScope, $scope, $cookies, $location) {
 
     $scope.filters = ["laboratory", "institution", "researchteam"]
     $scope.search = function () {
