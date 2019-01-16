@@ -9,9 +9,10 @@ const options = {
 var uuid = require("uuid")
 var express = require('express');
 var bodyParser = require('body-parser');
-const request = require("request")
 var app = express();
+var axios = require("axios")
 var DocRepository = require("./doc.db")
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -19,76 +20,44 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
-app.post('/search', (req, res) => {
-  console.log(req.body);
-  var input = req.body.input
-  var filter = req.body.filter
-  var items = []
-  var docs = []
-  console.log(input);
-  if (filter) {
-    request.get("https://api.archives-ouvertes.fr/search/?q=" + input + "&fq=structType_s:" + filter + "&wt=json&fl=authFullName_s+docid+label_s+uri_s+title_s",
-      function (err, response, body) {
-        if (response.statusCode == 200) {
-          isOk = true
-          items = JSON.parse(response.body).response.docs
-          items.forEach(item => {
-
-            var doc = {
-              _id: uuid(),
-              label: item.label_s,
-              uri: item.uri_s,
-              docid: item.docid,
-              title: item.title_s.toString(),
-              authors: item.authFullName_s.toString()
-            }
-            docs.push(doc)
-            DocRepository.add(doc, (res) => {
-
-            })
-          });
-
-        }
-        res.send({
-          data: docs,
-          success: isOk
-        })
+app.post('/search/hal',(req, res) => {
+  axios.post('http://localhost:8091/hal/search', {
+    input: req.body.input
+  }).then(function (response) {
+    var items = response.data.data
+    items.forEach(item => {
+      DocRepository.add(item, (response) => {
+        // console.log(response);
+        
       })
+    });
+    res.send(response.data)
+  }).catch(function (error) {
+    res.send(false)
+  });
+  
 
-  } else {
-    request.get("https://api.archives-ouvertes.fr/search/?q=" + input + "&wt=json&fl=authFullName_s+docid+label_s+uri_s+title_s",
-      function (err, response, body) {
-        if (response.statusCode == 200) {
-          isOk = true
-          items = JSON.parse(response.body).response.docs
-          items.forEach(item => {
-
-            var doc = {
-              _id: uuid(),
-              label: item.label_s,
-              uri: item.uri_s,
-              docid: item.docid,
-              title: item.title_s.toString(),
-              authors: item.authFullName_s.toString()
-            }
-            docs.push(doc)
-
-            DocRepository.add(doc, (res) => {
-              // console.log(docs);
-            })
-          });
-
-          res.send({
-            data: docs,
-            success: isOk
-          })
-        }
-
+});
+app.post('/search/arxiv',(req, res) => {
+  axios.post('http://localhost:8092/arxiv/search', {
+    input: req.body.input
+  }).then(function (response) {
+    var items = response.data.data
+    items.forEach(item => {
+      DocRepository.add(item, (response) => {
+        // console.log(response);
+        
       })
+    });
 
-  }
-})
+    res.send(response.data)
+  }).catch(function (error) {
+    res.send(false)
+  });
+  
+
+});
+
 var port = 8090;
 https.createServer(options, app).listen(port, function () {
   console.log("Port : " + port);

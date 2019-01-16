@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var uuidv4 = require("uuid/v4");
+var uuid = require("uuid");
 // var bcrypt = require("bcrypt");
 
 
@@ -15,11 +15,13 @@ mongoose.connect('mongodb://localhost/hal', function (err) {
 
 var DocSchema = Schema({
     _id: String,
-    uri: String,
-    label: String,
-    docid: String,
+    uri: {
+        type: String,
+        unique: true
+    },
     authors: String,
     title: String,
+    description: String
 });
 
 var DocModel = mongoose.model('documents', DocSchema);
@@ -29,25 +31,23 @@ module.exports = {
 
     add: function (doc, cb) {
         DocModel.count({
-            docid: doc.docid,
+            uri: doc.uri,
         }, function (err, count) {
             if (err) {
                 console.error();
             } else if (count == 0) {
                 var nouveau = new DocModel({
-                    _id: doc._id,
-                    docid: doc.docid,
-                    label: doc.label,
+                    _id: uuid(),
                     uri: doc.uri,
                     authors: doc.authors,
                     title: doc.title,
+                    description: doc.description
                 });
                 nouveau.save(function (err, resp) {
                     if (err) {
                         console.log("problème creation doc in the BD ");
                         console.error();
                     } else {
-                        // console.log("a new doc is created in the BD ");
                         cb(resp, true);
                     }
                 });
