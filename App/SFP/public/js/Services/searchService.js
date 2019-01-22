@@ -27,7 +27,18 @@ searchApp.factory('searchService', ['$http', function ($http) {
        
         
     }
-    
+    server.solrSearch = function (cb){
+        // $http.get('/search/solr').then(function(res){
+        //     result = res.data
+        //     cb(res.data) 
+        // })
+        console.log('service');
+        
+        $http.get('http://localhost:8983/solr/BigDP/select?q=*:*&wt=json').then(function(data){
+            console.log(data.data.response.docs);
+            
+        })
+    }
     
     return server;
-}])
+}]) 

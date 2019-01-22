@@ -14,7 +14,6 @@ searchApp.config(function ($stateProvider,$urlRouterProvider) {
     };
  
     $stateProvider.state(homeState);
-
     $stateProvider.state(searchPageState);
     $urlRouterProvider.otherwise("/");
 })

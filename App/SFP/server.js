@@ -12,14 +12,15 @@ var bodyParser = require('body-parser');
 var app = express();
 var axios = require("axios")
 var DocRepository = require("./doc.db")
-
+var http = require("http")
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+var cors = require("cors")
+app.use(cors())
 app.post('/search/hal',(req, res) => {
   axios.post('http://localhost:8091/hal/search', {
     input: req.body.input
@@ -57,6 +58,17 @@ app.post('/search/arxiv',(req, res) => {
   
 
 });
+// app.get('/search/solr', (req, res)=>{
+//   console.log('server');
+  
+//   http.get('http://localhost:8983/solr/BigDP/select?q=*:*&wt=json', function(data){
+//     console.log('a');
+    
+//     console.log('data', data.response);
+//     res.send('something')
+//     // $scope.items = data.response.docs;
+// })
+// })
 
 var port = 8090;
 https.createServer(options, app).listen(port, function () {

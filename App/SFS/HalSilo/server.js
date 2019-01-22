@@ -29,7 +29,8 @@ app.post('/hal/search', function (req, res) {
             uri: item.uri_s,
             title: String(item.title_s),
             authors: String(item.authFullName_s),
-            description: String(item.abstract_s)
+            description: String(item.abstract_s),
+            source: "Hal"
           }
           docs.push(doc)
         });

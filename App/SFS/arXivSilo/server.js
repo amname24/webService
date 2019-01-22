@@ -44,7 +44,8 @@ app.post('/arxiv/search', function (req, res) {
               uri: item.id._text,
               title: item.title._text,
               authors: auths.toString(),
-              description: item.summary._text
+              description: item.summary._text,
+              source: "Arxiv"
             }
             docs.push(doc)
             

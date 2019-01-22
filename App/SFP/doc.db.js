@@ -5,7 +5,7 @@ var uuid = require("uuid");
 
 var Schema = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost/hal', function (err) {
+mongoose.connect('mongodb://localhost/aix+marseille+universite', function (err) {
     if (err) {
         throw err;
     } else {
@@ -21,7 +21,8 @@ var DocSchema = Schema({
     },
     authors: String,
     title: String,
-    description: String
+    description: String,
+    source: String
 });
 
 var DocModel = mongoose.model('documents', DocSchema);
@@ -41,7 +42,8 @@ module.exports = {
                     uri: doc.uri,
                     authors: doc.authors,
                     title: doc.title,
-                    description: doc.description
+                    description: doc.description,
+                    source: doc.source
                 });
                 nouveau.save(function (err, resp) {
                     if (err) {
@@ -52,6 +54,7 @@ module.exports = {
                     }
                 });
             } else {
+                // DocModel.findById
                 // console.log("this docid was saved before " + doc.docid)
                 cb(count, false);
             }
