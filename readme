@@ -1,1 +1,65 @@
+add to managed-schema.xml:
+<field name="uri" type="string" indexed="true" stored="true"/>
+<field name="authors" type="string" indexed="true" stored="true"/>
+<field name="title" type="string" indexed="true" stored="true"/>
+<field name="description" type="string" indexed="true" stored="true"/>
+<field name="source" type="string" indexed="true" stored="true"/>
 
+
+--------------------------------------
+data-config.xml:
+<?xml version="1.0"?>
+<dataConfig>
+   <dataSource name="mymongodb" type="MongoDataSource" database="aix+marseille+universite" />
+   <document name="data">
+   <!-- if query="" then it imports everything -->
+      <entity name="documents"
+              processor="MongoEntityProcessor"
+              query=""
+              collection="documents"
+              datasource="mymongodb"
+              transformer="MongoMapperTransformer">
+              <field column="id"  name="id" mongoField="_id" />
+              <field column="uri" name="uri" mongoField="uri"/>
+              <field column="authors"  name="authors" mongoField="authors" />
+              <field column="title"  name="title" mongoField="title" />
+              <field column="description"  name="description" mongoField="description" />    
+			  <field column="source"  name="source" mongoField="source" />    
+			  
+       </entity>
+   </document>
+</dataConfig>
+
+
+-------------------------------------------
+To allow access to solr from localhost:8090
+add to server\solr-webapp\webapp\WEB-INF\web.xml
+<filter>
+    <filter-name>cross-origin</filter-name>
+    <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
+    <init-param>
+         <param-name>allowedOrigins</param-name>
+         <param-value>https://localhost:8090</param-value>
+    </init-param>
+     <init-param>
+         <param-name>allowedMethods</param-name>
+         <param-value>GET,POST,DELETE,PUT,HEAD,OPTIONS</param-value>
+     </init-param>
+     <init-param>
+         <param-name>allowedHeaders</param-name>
+         <param-value>origin, content-type, cache-control, accept, options, authorization, x-requested-with</param-value>
+     </init-param>
+    <init-param>
+        <param-name>supportsCredentials</param-name>
+        <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>chainPreflight</param-name>
+      <param-value>false</param-value>
+    </init-param>
+</filter>
+
+<filter-mapping>
+  <filter-name>cross-origin</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>
