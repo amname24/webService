@@ -1,11 +1,24 @@
 <div>
-
     <div class="container">
         <div class="row">
-            <div class="container"  ng-controller="homeCtrl">
+            <div class="container" ng-controller="homeCtrl">
+                <form class="navbar-form" role="search" ng-submit="search_and_save()">
+                    <h5 class="text-danger center" style="font-style: italic">Do search from Hal and Arxiv site, then
+                        save into database</h5>
+                    <div class="input-group add-on">
+                        <input class="form-control" placeholder="Input" name="srch-term" id="srch-term" ng-model="searchInput"
+                            type="text">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Search and save</button>
+                        </div>
+                    </div>
+                </form>
+                <hr style="border: solid 1px">
                 <form class="navbar-form" role="search" ng-submit="search()">
-                    <div   class="input-group add-on">
-                       <h5>Choose a filter</h5>
+                    <h5 class="text-danger center" style="font-style: italic">Do search from datas stocked in Solr</h5>
+                    <div class="input-group add-on">
+
+                        <h5>Choose a filter</h5>
                     </div>
                     <div class="input-group-btn search-panel">
                         <select class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-options="filter as filter.filter for filter in filters"
@@ -13,11 +26,11 @@
                             <option value=""> Default</option>
                         </select>
                     </div>
-        
+
                 </form>
                 <form class="navbar-form" role="search" ng-submit="search()">
-                    <div   class="input-group add-on">
-                        <input class="form-control" placeholder="Input" name="srch-term" id="srch-term" ng-model="searchInput"
+                    <div class="input-group add-on">
+                        <input class="form-control" placeholder="Input" name="solr-srch-term" id="solr-srch-term" ng-model="solrSearchInput"
                             type="text">
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
@@ -29,7 +42,7 @@
                             <option value="">Hal+Arxiv</option>
                         </select>
                     </div>
-        
+
                 </form>
             </div>
             <ui-view></ui-view>

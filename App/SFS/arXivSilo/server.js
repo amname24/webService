@@ -19,12 +19,13 @@ app.post('/arxiv/search', function (req, res) {
     var input = req.body.input
     var isOk
     var docs = []
+    var items = []
     request.get("http://export.arxiv.org/api/query?search_query="+input,
     function (err, response, body) {
       if (response.statusCode == 200) {
           var xmlRes = response.body
           var jsonRes = convert.xml2json(xmlRes, {compact: true, spaces: 4})
-          var items = JSON.parse(jsonRes).feed.entry
+          items  = JSON.parse(jsonRes).feed.entry
           // console.log(items);
           
           items.forEach(item => {

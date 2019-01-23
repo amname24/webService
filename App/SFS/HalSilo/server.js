@@ -18,6 +18,7 @@ app.post('/hal/search', function (req, res) {
     var input = req.body.input
     var isOk
     var docs = []
+    var items = []
     request.get("https://api.archives-ouvertes.fr/search/?q=" + input + "&wt=json&fl=authFullName_s+uri_s+title_s+abstract_s",
     function (err, response, body) {
       if (response.statusCode == 200) {

@@ -9,6 +9,8 @@ searchApp.factory('searchService', ['$http', function ($http) {
         var result
         $http.post('/search/hal', req).then(function(res){
             result = res.data
+            console.log(res.data);
+            
             cb(res.data) 
         })
        
@@ -22,6 +24,8 @@ searchApp.factory('searchService', ['$http', function ($http) {
         var result
         $http.post('/search/arxiv', req).then(function(res){
             result = res.data
+            console.log(res.data);
+            
             cb(res.data) 
         })
        

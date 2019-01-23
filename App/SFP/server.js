@@ -28,7 +28,7 @@ app.post('/search/hal',(req, res) => {
     var items = response.data.data
     items.forEach(item => {
       DocRepository.add(item, (response) => {
-        // console.log(response);
+        console.log(response);
         
       })
     });
@@ -46,7 +46,7 @@ app.post('/search/arxiv',(req, res) => {
     var items = response.data.data
     items.forEach(item => {
       DocRepository.add(item, (response) => {
-        // console.log(response);
+        console.log(response);
         
       })
     });
