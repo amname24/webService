@@ -141,4 +141,8 @@ add to solrconfig.xml
   </arr>
 </requestHandler>
 
+the commnde you use to activate solr :
+
+bin/solr start -Dsolr.clustering.enabled=true
+
 
