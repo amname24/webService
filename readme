@@ -1,3 +1,6 @@
+
+To configurate solr :
+
 add to managed-schema.xml:
 <field name="uri" type="string" indexed="true" stored="true"/>
 <field name="authors" type="string" indexed="true" stored="true"/>
@@ -63,3 +66,79 @@ add to server\solr-webapp\webapp\WEB-INF\web.xml
   <filter-name>cross-origin</filter-name>
   <url-pattern>/*</url-pattern>
 </filter-mapping>
+
+To configurate CLustering in solr :
+
+add to solrconfig.xml
+
+<lib dir="${solr.install.dir:../../..}/contrib/clustering/lib/" regex=".*\.jar" />
+<lib dir="${solr.install.dir:../../..}/dist/" regex="solr-clustering-\d.*\.jar" />
+
+
+<searchComponent name="clustering" class="solr.clustering.ClusteringComponent">
+  <!-- Lingo clustering algorithm -->
+  <lst name="engine">
+    <str name="name">lingo</str>
+    <str name="carrot.algorithm">org.carrot2.clustering.lingo.LingoClusteringAlgorithm</str>
+  </lst>
+
+  <!-- An example definition for the STC clustering algorithm. -->
+  <lst name="engine">
+    <str name="name">stc</str>
+    <str name="carrot.algorithm">org.carrot2.clustering.stc.STCClusteringAlgorithm</str>
+  </lst>
+  
+  <!-- An example definition for the kmean clustering algorithm. -->
+  <lst name="engine">
+    <str name="name">kmeans</str>
+    <str name="carrot.algorithm">org.carrot2.clustering.kmeans.BisectingKMeansClusteringAlgorithm</str>
+  </lst>
+</searchComponent>
+
+
+<requestHandler name="/clustering/auteur"
+                class="solr.SearchHandler">
+  <lst name="defaults">
+    <bool name="clustering">true</bool>
+    <bool name="clustering.results">true</bool>
+
+    <!-- Logical field to physical field mapping. -->
+    <str name="carrot.url">id</str>
+    <str name="carrot.title">authors</str>
+
+    <!-- Configure any other request handler parameters. We will cluster the
+         top 100 search results so bump up the 'rows' parameter. -->
+    <str name="rows">100</str>
+    <str name="fl">*,score</str>
+  </lst>
+
+  <!-- Append clustering at the end of the list of search components. -->
+  <arr name="last-components">
+    <str>clustering</str>
+  </arr>
+</requestHandler>
+
+<requestHandler name="/clustering/article"
+                class="solr.SearchHandler">
+  <lst name="defaults">
+    <bool name="clustering">true</bool>
+    <bool name="clustering.results">true</bool>
+
+    <!-- Logical field to physical field mapping. -->
+    <str name="carrot.url">id</str>
+    <str name="carrot.title">title</str>
+    <str name="carrot.snippet">label</str>
+
+    <!-- Configure any other request handler parameters. We will cluster the
+         top 100 search results so bump up the 'rows' parameter. -->
+    <str name="rows">100</str>
+    <str name="fl">*,score</str>
+  </lst>
+
+  <!-- Append clustering at the end of the list of search components. -->
+  <arr name="last-components">
+    <str>clustering</str>
+  </arr>
+</requestHandler>
+
+
